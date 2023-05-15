@@ -207,7 +207,7 @@ const ThreeColumns = () => {
     ) {
       const foundCodes = [key1, key2, key3, key4, key5, key6, key7, key8];
       const formatedCodes = foundCodes.map((code) =>
-        code.replace(/^\d+ - /, "")
+        code.trim().replace(/^\d+ - /, "")
       );
       const result = formatedCodes.join("");
       setCompiledKey(result);
@@ -257,6 +257,7 @@ const ThreeColumns = () => {
       }
     });
     setWiki2(foundLinks);
+    setInputField("");
   };
   return (
     <div className="min-h-screen bg-black flex items-center content-center">
