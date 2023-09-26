@@ -4,6 +4,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -16,6 +17,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
+import { ModeToggle } from "@/components/mode-toggle";
 
 type Keys = {
   key1: string;
@@ -167,6 +169,9 @@ function App() {
       </Card>
       <Card className="flex flex-col min-h-[35rem] w-[24rem] justify-between">
         <CardHeader>
+          <div className="absolute top-1 right-1">
+            <ModeToggle />
+          </div>
           <CardTitle>Store your keys here...</CardTitle>
           <CardDescription>
             Did you know that Lucas can steal your in-game notes if you don't
@@ -176,7 +181,7 @@ function App() {
         <CardContent className="space-y-2 flex flex-col justify-center items-center">
           <Input
             className={`font-bold ${
-              keys.key1.length >= 12 ? "bg-primary text-black" : ""
+              keys.key1.length >= 12 ? "bg-primary text-secondary" : ""
             } duration-500`}
             name="key1"
             value={keys.key1}
@@ -185,7 +190,7 @@ function App() {
           />
           <Input
             className={`font-bold ${
-              keys.key2.length >= 12 ? "bg-primary text-black" : ""
+              keys.key2.length >= 12 ? "bg-primary text-secondary" : ""
             } duration-500`}
             name="key2"
             value={keys.key2}
@@ -194,7 +199,7 @@ function App() {
           />
           <Input
             className={`font-bold ${
-              keys.key3.length >= 12 ? "bg-primary text-black" : ""
+              keys.key3.length >= 12 ? "bg-primary text-secondary" : ""
             } duration-500`}
             name="key3"
             value={keys.key3}
@@ -203,7 +208,7 @@ function App() {
           />
           <Input
             className={`font-bold ${
-              keys.key4.length >= 12 ? "bg-primary text-black" : ""
+              keys.key4.length >= 12 ? "bg-primary text-secondary" : ""
             } duration-500`}
             name="key4"
             value={keys.key4}
@@ -212,7 +217,7 @@ function App() {
           />
           <Input
             className={`font-bold ${
-              keys.key5.length >= 12 ? "bg-primary text-black" : ""
+              keys.key5.length >= 12 ? "bg-primary text-secondary" : ""
             } duration-500`}
             name="key5"
             value={keys.key5}
@@ -221,7 +226,7 @@ function App() {
           />
           <Input
             className={`font-bold ${
-              keys.key6.length >= 12 ? "bg-primary text-black" : ""
+              keys.key6.length >= 12 ? "bg-primary text-secondary" : ""
             } duration-500`}
             name="key6"
             value={keys.key6}
@@ -230,7 +235,7 @@ function App() {
           />
           <Input
             className={`font-bold ${
-              keys.key7.length >= 12 ? "bg-primary text-black" : ""
+              keys.key7.length >= 12 ? "bg-primary text-secondary" : ""
             } duration-500`}
             name="key7"
             value={keys.key7}
@@ -239,7 +244,7 @@ function App() {
           />
           <Input
             className={`font-bold ${
-              keys.key8.length >= 12 ? "bg-primary text-black" : ""
+              keys.key8.length >= 12 ? "bg-primary text-secondary" : ""
             } duration-500`}
             name="key8"
             value={keys.key8}
