@@ -34,17 +34,19 @@ type TimedWebsite = {
   pages: string[];
 };
 
+const initialKeysState: Keys = {
+  key1: "",
+  key2: "",
+  key3: "",
+  key4: "",
+  key5: "",
+  key6: "",
+  key7: "",
+  key8: "",
+};
+
 function App() {
-  const [keys, setKeys] = useState<Keys>({
-    key1: "",
-    key2: "",
-    key3: "",
-    key4: "",
-    key5: "",
-    key6: "",
-    key7: "",
-    key8: "",
-  });
+  const [keys, setKeys] = useState<Keys>(initialKeysState);
 
   const info: TimedWebsite[] = [
     {
@@ -71,11 +73,16 @@ function App() {
 
   const { toast } = useToast();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const updateKey = (keyNumber: string, value: string) => {
     setKeys((prevKeys) => ({
       ...prevKeys,
-      [e.target.name]: e.target.value,
+      ["key" + keyNumber]: value,
     }));
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const keyNumber = e.target.name.slice(-1);
+    updateKey(keyNumber, e.target.value);
   };
 
   const checkForKeys = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -85,10 +92,7 @@ function App() {
 
     matches.forEach((match) => {
       const keyNumber = match[0][0];
-      setKeys((prevKeys) => ({
-        ...prevKeys,
-        ["key" + keyNumber]: match[0].substring(4),
-      }));
+      updateKey(keyNumber, match[0].substring(4));
       toast({
         title: `Key number ${match[0][0]} found!`,
         description: `${match[0].substring(4)}`,
@@ -106,31 +110,43 @@ function App() {
     const values = Object.values(keys);
     const concatenatedKeys = values.join("");
 
-    navigator.clipboard
-      .writeText(concatenatedKeys)
-      .then(() => {
-        toast({
-          title: "Compiled Key copied to clipboard successfully",
+    if (concatenatedKeys.length === 96) {
+      navigator.clipboard
+        .writeText(concatenatedKeys)
+        .then(() => {
+          toast({
+            title:
+              "The compiled key has been copied to your clipboard. Congratulations on completing a run of WTTG2.",
+          });
+        })
+        .catch((err) => {
+          toast({
+            title: `Failed to copy keys to clipboard: ${err}`,
+          });
         });
-      })
-      .catch((err) => {
-        toast({
-          title: `Failed to copy keys to clipboard ${err}`,
-        });
+    } else {
+      toast({
+        title: "You must have all 8 of the keys to compile the master key.",
       });
+    }
   };
 
   const clearKeys = () => {
-    setKeys({
-      key1: "",
-      key2: "",
-      key3: "",
-      key4: "",
-      key5: "",
-      key6: "",
-      key7: "",
-      key8: "",
-    });
+    if (
+      keys.key1 ||
+      keys.key2 ||
+      keys.key3 ||
+      keys.key4 ||
+      keys.key5 ||
+      keys.key6 ||
+      keys.key7 ||
+      keys.key8
+    ) {
+      setKeys(initialKeysState);
+      toast({
+        title: "Inputs cleared. Hopefully the next run is the one.",
+      });
+    }
   };
 
   return (
@@ -171,7 +187,7 @@ function App() {
         <CardContent className="space-y-2 flex flex-col justify-center items-center">
           <Input
             className={`font-bold ${
-              keys.key1.length >= 12 ? "bg-primary text-secondary" : ""
+              keys.key1.length === 12 ? "bg-primary text-secondary" : ""
             } duration-500`}
             name="key1"
             value={keys.key1}
@@ -180,7 +196,7 @@ function App() {
           />
           <Input
             className={`font-bold ${
-              keys.key2.length >= 12 ? "bg-primary text-secondary" : ""
+              keys.key2.length === 12 ? "bg-primary text-secondary" : ""
             } duration-500`}
             name="key2"
             value={keys.key2}
@@ -189,7 +205,7 @@ function App() {
           />
           <Input
             className={`font-bold ${
-              keys.key3.length >= 12 ? "bg-primary text-secondary" : ""
+              keys.key3.length === 12 ? "bg-primary text-secondary" : ""
             } duration-500`}
             name="key3"
             value={keys.key3}
@@ -198,7 +214,7 @@ function App() {
           />
           <Input
             className={`font-bold ${
-              keys.key4.length >= 12 ? "bg-primary text-secondary" : ""
+              keys.key4.length === 12 ? "bg-primary text-secondary" : ""
             } duration-500`}
             name="key4"
             value={keys.key4}
@@ -207,7 +223,7 @@ function App() {
           />
           <Input
             className={`font-bold ${
-              keys.key5.length >= 12 ? "bg-primary text-secondary" : ""
+              keys.key5.length === 12 ? "bg-primary text-secondary" : ""
             } duration-500`}
             name="key5"
             value={keys.key5}
@@ -216,7 +232,7 @@ function App() {
           />
           <Input
             className={`font-bold ${
-              keys.key6.length >= 12 ? "bg-primary text-secondary" : ""
+              keys.key6.length === 12 ? "bg-primary text-secondary" : ""
             } duration-500`}
             name="key6"
             value={keys.key6}
@@ -225,7 +241,7 @@ function App() {
           />
           <Input
             className={`font-bold ${
-              keys.key7.length >= 12 ? "bg-primary text-secondary" : ""
+              keys.key7.length === 12 ? "bg-primary text-secondary" : ""
             } duration-500`}
             name="key7"
             value={keys.key7}
@@ -234,7 +250,7 @@ function App() {
           />
           <Input
             className={`font-bold ${
-              keys.key8.length >= 12 ? "bg-primary text-secondary" : ""
+              keys.key8.length === 12 ? "bg-primary text-secondary" : ""
             } duration-500`}
             name="key8"
             value={keys.key8}
