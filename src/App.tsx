@@ -4,7 +4,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -81,15 +80,11 @@ function App() {
 
   const checkForKeys = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const content = e.target.value;
-
     const pattern = /[1-8] - [a-z0-9]{12}/gi;
-
     const matches = Array.from(content.matchAll(pattern));
 
     matches.forEach((match) => {
       const keyNumber = match[0][0];
-      console.log(match[0]);
-      console.log(match[0].substring(4));
       setKeys((prevKeys) => ({
         ...prevKeys,
         ["key" + keyNumber]: match[0].substring(4),
@@ -109,9 +104,6 @@ function App() {
 
   const compileKeys = () => {
     const values = Object.values(keys);
-
-    values.shift();
-
     const concatenatedKeys = values.join("");
 
     navigator.clipboard
@@ -120,13 +112,11 @@ function App() {
         toast({
           title: "Compiled Key copied to clipboard successfully",
         });
-        console.log("Keys copied to clipboard successfully");
       })
       .catch((err) => {
         toast({
-          title: "Failed to copy keys to clipboard",
+          title: `Failed to copy keys to clipboard ${err}`,
         });
-        console.error("Failed to copy keys to clipboard: ", err);
       });
   };
 
