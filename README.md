@@ -13,9 +13,7 @@ Make sure you have the following installed on your development machine:
 - Node.js (version 16 or above)
 - pnpm (package manager)
 
-## 🚀 Getting Started
-
-Follow these steps to get started with the react-vite-ui template:
+## 🚀 How to run the project locally
 
 1. Clone the repository:
 
